@@ -15,18 +15,18 @@ module Foreigner
                   THEN 'c' ELSE 'r'
                   END AS dependency
           FROM    sysobjects AS from_table,
-                  [sys].[foreignkeys] AS f,
+                  sys.foreign_key_columns AS f,
                   sysobjects AS to_table,
                   sysobjects AS foreign_key,
                   syscolumns AS from_column,
                   syscolumns AS to_column
           WHERE   from_table.type = 'U'
-            AND   from_table.id = f.fkeyid
+            AND   from_table.id = f.parent_object_id
             AND   f.constid = foreign_key.id
-            AND   f.rkeyid = to_table.id
-            AND   f.fkey = from_column.colid
+            AND   f.referenced_object_id = to_table.id
+            AND   f.parent_column_id = from_column.colid
             AND   from_column.id = from_table.id
-            AND   f.rkey = to_column.colid
+            AND   f.constraint_column_id = to_column.colid
             AND   to_column.id = to_table.id
             AND   from_table.name = '#{table_name}'
           ORDER BY from_table.name, to_table.name, foreign_key.name, from_column.name
