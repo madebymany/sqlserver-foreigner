@@ -15,7 +15,7 @@ module Foreigner
                   THEN 'c' ELSE 'r'
                   END AS dependency
           FROM    sysobjects AS from_table,
-                  sysforeignkeys AS f,
+                  [sys].[foreignkeys] AS f,
                   sysobjects AS to_table,
                   sysobjects AS foreign_key,
                   syscolumns AS from_column,
