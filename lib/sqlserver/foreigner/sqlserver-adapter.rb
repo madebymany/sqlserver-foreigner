@@ -22,7 +22,7 @@ module Foreigner
                   syscolumns AS to_column
           WHERE   from_table.type = 'U'
             AND   from_table.id = f.parent_object_id
-            AND   f.constid = foreign_key.id
+            AND   f.constraint_object_id = foreign_key.id
             AND   f.referenced_object_id = to_table.id
             AND   f.parent_column_id = from_column.colid
             AND   from_column.id = from_table.id
